@@ -1,9 +1,43 @@
 import mongoose from "mongoose";
-const ProductSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    maxlength: 60,
+const ProductSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      maxlength: 60,
+    },
+    desc: {
+      type: String,
+      required: true,
+      maxlength: 200,
+    },
+    img: {
+      type: String,
+      required: true,
+    },
+    prices: {
+      type: [Number],
+      required: true,
+    },
+    extraOption: {
+      type: [
+        {
+          text: {
+            type: String,
+            required: true,
+          },
+          price: {
+            type: Number,
+            required: true,
+          },
+        },
+      ],
+    },
   },
-  price: {},
-});
+  { timestamps: true }
+);
+
+export default mongoose.models.Product ||
+  mongoose.model("Product", ProductSchema);
+
+//* timestamps  => give you the date created

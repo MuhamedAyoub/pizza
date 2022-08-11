@@ -1,9 +1,10 @@
+import axios from "axios";
 import Head from "next/head";
 import Featured from "../components/Features";
 import PizzaList from "../components/Pizzalist";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ pizzaList }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -11,8 +12,17 @@ export default function Home() {
         <meta name="description" content="Best pizza shop in town" />
         <link rel="icon" href="/logo.ico" />
       </Head>
-      <Featured />
-      <PizzaList />
+      <Featured pizzaList={pizzaList} />
+      <PizzaList pizzaList={pizzaList} />
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await axios.get("http://localhost:3001/api/products");
+  return {
+    props: {
+      pizzaList: res.data,
+    },
+  };
 }

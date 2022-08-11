@@ -8,11 +8,6 @@ if (!MONGO_URL) {
   );
 }
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
- */
 let cached = global.mongoose;
 
 if (!cached) {
@@ -30,9 +25,14 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(MONGO_URL)
+      .then((mongoose) => {
+        return mongoose;
+      })
+      .then(() => {
+        console.log("Connected to Data Base ");
+      });
   }
   cached.conn = await cached.promise;
   return cached.conn;
