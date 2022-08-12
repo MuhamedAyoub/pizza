@@ -6,7 +6,7 @@ export default function Box({ styles, option, onChange }) {
         type="checkbox"
         id={option.text}
         name={option.text}
-        onChange={(e) => onChange(e, option.price)}
+        onChange={(e) => onChange(e, option)}
       />
       <label htmlFor={option.text}>{option.text}</label>
     </div>
