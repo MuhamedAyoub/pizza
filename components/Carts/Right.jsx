@@ -54,7 +54,8 @@ export default function Right({ cart }) {
           }}
           onApprove={function (data, actions) {
             return actions.order.capture().then(function (details) {
-              console.log(details);
+              const shipping = details.purchase_units[0].shipping
+              console.log(shipping);
             });
           }}
         />
@@ -100,12 +101,3 @@ export default function Right({ cart }) {
   );
 }
 
-/*
-
- onApprove={function (data, actions) {
-                    return actions.order.capture().then(function () {
-                        // Your code here after capture the order
-                    });
-                }}
-                
-                */
