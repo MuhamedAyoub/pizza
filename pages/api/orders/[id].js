@@ -1,5 +1,5 @@
 import Connect from "../../../utls/mongo";
-import Order from "../../models/Order";
+import Order from "../../../models/Order";
 export default async function handler(req, res) {
   const {
     method,
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const pizza = await Order.findById(id);
-        res.status(200).json(pizza);
+        const order = await Order.findById(id);
+        res.status(200).json(order);
       } catch (ex) {
         res.status(500).json(ex);
       }
