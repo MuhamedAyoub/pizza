@@ -27,6 +27,6 @@ const OrderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Order || mongoose.model("Order", ProductSchema);
+export default mongoose.models.Order || mongoose.model("Order", OrderSchema);
 
 //* timestamps  => give you the date created

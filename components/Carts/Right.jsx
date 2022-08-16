@@ -6,10 +6,10 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 
-export default function Right({ cart }) {
+export default function Right({ cart, createOrder }) {
   const [open, setOpen] = useState(false);
   // This values are the props in the UI
-  const amount = `${cart.total}`;
+  const amount = cart.total;
   const currency = "USD";
   const style = { layout: "vertical" };
   const ButtonWrapper = ({ currency, showSpinner }) => {
@@ -54,8 +54,9 @@ export default function Right({ cart }) {
           }}
           onApprove={function (data, actions) {
             return actions.order.capture().then(function (details) {
-              const shipping = details.purchase_units[0].shipping
-              console.log(shipping);
+              const shipping = details.purchase_units[0].shipping;
+              createOrder({ customer: shipping.name.full_name, address: shipping.address.address_line_1, total: cart.total, method: 1 });
+
             });
           }}
         />
