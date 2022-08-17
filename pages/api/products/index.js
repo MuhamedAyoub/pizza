@@ -14,10 +14,10 @@ export default async function handler(req, res) {
   if (method === "POST") {
     try {
       const product = await Product.create(req.body);
+      product.save();
       res.status(201).json(product);
     } catch (ex) {
       res.status(500).json(ex);
     }
   }
 }
-

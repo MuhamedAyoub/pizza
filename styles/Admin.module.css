@@ -1,11 +1,12 @@
 .container {
-    padding: 50px;
-
+    padding: 15px;
+    margin: 15px;
+    display: flex;
 }
 
 .item {
     flex: 1;
-
+    margin: 15px
 }
 
 .table {

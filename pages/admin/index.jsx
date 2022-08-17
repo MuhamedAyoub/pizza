@@ -9,7 +9,10 @@ export default function Dashboard({ products, orders }) {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete("http://localhost:3000/api/products" + id);
+      const res = await axios.delete(
+        "http://localhost:3000/api/products/" + id
+      );
+      console.log(id);
       setPizzaList(piizaList.filter((item) => item._id !== id));
     } catch (ex) {
       console.log(ex);
@@ -18,8 +21,16 @@ export default function Dashboard({ products, orders }) {
   return (
     <div className={styles.container}>
       <div className={styles.item}>
-        <h1 className={styles.title}>Dashboard</h1>
+        <h1 className={styles.title}>Products</h1>
         <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Customer Id</th>
+              <th>Product Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
           {pizzaList.map((product) => (
             <tbody key={product._id}>
               <tr className={styles.trTitle}>
@@ -37,7 +48,10 @@ export default function Dashboard({ products, orders }) {
                 <td>${product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
-                  <button onClick={handleDelete} className={styles.button}>
+                  <button
+                    onClick={(product) => handleDelete(product._id)}
+                    className={styles.button}
+                  >
                     Delete
                   </button>
                 </td>
@@ -46,32 +60,37 @@ export default function Dashboard({ products, orders }) {
           ))}
         </table>
       </div>
+      <hr />
       <div className={styles.item}>
         <h1 className={styles.title}>Orders</h1>
         <table className={styles.table}>
           <tbody>
             <tr className={styles.trTitle}>
               <th>Id</th>
-              <td>Customer</td>
-              <td>Total</td>
-              <td>Payment Method</td>
-              <td>Action</td>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Payment Method</th>
+              <th>Action</th>
             </tr>
           </tbody>
+          {orderList?.map((order) => (
+            <tbody key={order._id}>
+              <tr className={styles.trTitle}>
+                <th>{order._id.slice(5)}...</th>
+                <td>{order.customer}</td>
+                <td>${order.total}</td>
+                <td>
+                  {order.method === 0 ? <span>Cash</span> : <span>Paid</span>}
+                </td>
+                <td>Preparing</td>
+                <td>
+                  <button>Next Stage</button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
-      <tbody>
-        <tr className={styles.trTitle}>
-          <th>{"+213561475310".slice(5)}...</th>
-          <td>Jon Doe</td>
-          <td>$50</td>
-          <td>paid</td>
-          <td>Preparing</td>
-          <td>
-            <button>Next Stage</button>
-          </td>
-        </tr>
-      </tbody>
     </div>
   );
 }
