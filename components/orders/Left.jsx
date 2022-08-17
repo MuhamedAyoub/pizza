@@ -2,7 +2,7 @@ import styles from "../../styles/Order.module.css";
 import Image from "next/image";
 export default function Left({ order }) {
   const status = 0;
-
+  const titles = ["Order ID", "Customer", "Adress", "Total"]
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;
     if (index - status === 1) return styles.inProgress;
@@ -12,26 +12,29 @@ export default function Left({ order }) {
     <div className={styles.left}>
       <div className={styles.row}>
         <table className={styles.table}>
-          <tr className={styles.trTitle}>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Address</th>
-            <th>Total</th>
-          </tr>
-          <tr className={styles.tr}>
-            <td>
-              <span className={styles.id}>{order._id}</span>
-            </td>
-            <td>
-              <span className={styles.name}>{order.customer}</span>
-            </td>
-            <td>
-              <span className={styles.address}>{order.address}</span>
-            </td>
-            <td>
-              <span className={styles.total}>${order.total}</span>
-            </td>
-          </tr>
+          <thead>
+            <tr className={styles.trTitle}>
+              {titles.map((item, index) => <th key={index} >{item}</th>)}
+            </tr>
+
+          </thead>
+          <tbody>
+
+            <tr className={styles.tr}>
+              <td>
+                <span className={styles.id}>{order._id}</span>
+              </td>
+              <td>
+                <span className={styles.name}>{order.customer}</span>
+              </td>
+              <td>
+                <span className={styles.address}>{order.address}</span>
+              </td>
+              <td>
+                <span className={styles.total}>${order.total}</span>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div className={styles.row}>

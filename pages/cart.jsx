@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 const Cart = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  //* start data stat
+  //* End data state
+
   const cart = useSelector((state) => state.cart);
   const createOrder = async (data) => {
     try {
@@ -16,6 +19,7 @@ const Cart = () => {
       res.status === 201 && router.push("/orders/" + res.data._id);
       // after pay clean the basket 
       dispatch(reset())
+
     } catch (e) {
       console.error(e);
     }

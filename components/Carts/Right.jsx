@@ -5,9 +5,14 @@ import {
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
+import Orderdatails from "../Orderdatails/Orderdatails";
 
 export default function Right({ cart, createOrder }) {
+  //* start useState
   const [open, setOpen] = useState(false);
+  const [cash, setCash] = useState(false)
+
+  //* End useState 
   // This values are the props in the UI
   const amount = cart.total;
   const currency = "USD";
@@ -79,7 +84,7 @@ export default function Right({ cart, createOrder }) {
         </div>
         {open ? (
           <div className={styles.paymentMethods}>
-            <button className={styles.payButton}>CASH ONDELIVERY </button>
+            <button className={styles.payButton} onClick={_ => setCash(true)}>CASH ONDELIVERY </button>
             <PayPalScriptProvider
               options={{
                 "client-id":
@@ -98,6 +103,7 @@ export default function Right({ cart, createOrder }) {
           </button>
         )}
       </div>
+      {cash && <Orderdatails createOrder={createOrder} total={cart.total} />}
     </div>
   );
 }
