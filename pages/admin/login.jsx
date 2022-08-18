@@ -4,21 +4,20 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const router = useRouter();
   const handleClick = async () => {
-    if (error) {
-      try {
-        await axios.post("http://localhost:3000/api/login", {
-          username,
-          password,
-        });
-        router.push("/admin");
-      } catch (ex) {
-        setError(true);
-      }
+    try {
+      console.log(username);
+      await axios.post("http://localhost:3000/api/login", {
+        username,
+        password,
+      });
+      router.push("/admin");
+    } catch (ex) {
+      setError(true);
     }
   };
   return (
@@ -29,16 +28,12 @@ export default function Login() {
         <input
           placeholder="username"
           type="text"
-          name="username"
-          value={username}
           onChange={(e) => setUsername(e.target.value)}
           className={styles.input}
         />
         <input
           placeholder="password"
           type="password"
-          name="password"
-          value={password}
           onChange={(e) => setPassword(e.target.value)}
           className={styles.input}
         />

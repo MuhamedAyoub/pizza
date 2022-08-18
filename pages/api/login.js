@@ -1,10 +1,12 @@
 import cookie from "cookie";
 
-export default function handler(req, res) {
-  const { method } = req;
-
-  if (method === "POST") {
+const handler = (req, res) => {
+  if (req.method === "POST") {
     const { username, password } = req.body;
+    console.log(username, password);
+    console.log("--".repeat(10));
+    console.log(process.env.ADMIN_USERNAME);
+    console.log(process.env.ADMIN_PASSWORD);
     if (
       username === process.env.ADMIN_USERNAME &&
       password === process.env.ADMIN_PASSWORD
@@ -17,9 +19,11 @@ export default function handler(req, res) {
           path: "/",
         })
       );
-      res.status(200).json("Successfully");
+      res.status(200).json("Succesfull");
     } else {
-      res.status(400).json("Wrong Credentials");
+      res.status(400).json("Wrong Credentials!");
     }
   }
-}
+};
+
+export default handler;

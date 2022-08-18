@@ -99,13 +99,23 @@ export default function Dashboard({ products, orders }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const productRes = await axios.get("http://localhost:3000/api/products");
-  const ordersRes = await axios.get("http://localhost:3000/api/orders");
-  return {
-    props: {
-      orders: ordersRes.data,
-      products: productRes.data,
-    },
-  };
+export const getServerSideProps = async (context) => {
+  const cookie = context.req?.cookies || "";
+  if (cookie.token !== process.env.TOKEN) {
+    return {
+      redirect: {
+        destination: "/admin/login",
+        permanent: false,
+      },
+    };
+  } else {
+    const productRes = await axios.get("http://localhost:3000/api/products");
+    const ordersRes = await axios.get("http://localhost:3000/api/orders");
+    return {
+      props: {
+        orders: ordersRes.data,
+        products: productRes.data,
+      },
+    };
+  }
 };
