@@ -6,18 +6,19 @@ import axios from "axios";
 export default function Dashboard({ products, orders }) {
   const [pizzaList, setPizzaList] = useState(products);
   const [orderList, setOrderList] = useState(orders);
-
+  const status = ["preparing", "on the way", "delivered"];
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        "http://localhost:3000/api/products/" + id
+        `http://localhost:3000/api/products/${id}`
       );
       console.log(id);
-      setPizzaList(piizaList.filter((item) => item._id !== id));
+      setPizzaList(piizaList?.filter((item) => item._id !== id));
     } catch (ex) {
       console.log(ex);
     }
   };
+  const handleStatusc = (id) => {};
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -31,7 +32,7 @@ export default function Dashboard({ products, orders }) {
               <th>Price</th>
             </tr>
           </thead>
-          {pizzaList.map((product) => (
+          {pizzaList?.map((product) => (
             <tbody key={product._id}>
               <tr className={styles.trTitle}>
                 <td>
@@ -43,13 +44,13 @@ export default function Dashboard({ products, orders }) {
                     height={50}
                   />
                 </td>
-                <td>{product._id.slice(0, 5)}...</td>
+                <td>{product._id.slice(0, 7)}...</td>
                 <td>{product.title}</td>
                 <td>${product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
                   <button
-                    onClick={(product) => handleDelete(product._id)}
+                    onClick={() => handleDelete(product._id)}
                     className={styles.button}
                   >
                     Delete
@@ -70,21 +71,24 @@ export default function Dashboard({ products, orders }) {
               <th>Customer</th>
               <th>Total</th>
               <th>Payment Method</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </tbody>
           {orderList?.map((order) => (
             <tbody key={order._id}>
               <tr className={styles.trTitle}>
-                <th>{order._id.slice(5)}...</th>
+                <th>{order._id.slice(0, 7)}...</th>
                 <td>{order.customer}</td>
                 <td>${order.total}</td>
                 <td>
                   {order.method === 0 ? <span>Cash</span> : <span>Paid</span>}
                 </td>
-                <td>Preparing</td>
+                <td>{status[order.status]}</td>
                 <td>
-                  <button>Next Stage</button>
+                  <button onClick={(_) => handleStatus(order._id)}>
+                    Next Stage
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -100,7 +104,7 @@ export const getServerSideProps = async () => {
   const ordersRes = await axios.get("http://localhost:3000/api/orders");
   return {
     props: {
-      orderes: ordersRes.data,
+      orders: ordersRes.data,
       products: productRes.data,
     },
   };
