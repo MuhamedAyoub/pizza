@@ -1,7 +1,7 @@
 import Connect from "../../../utls/mongo";
 import Product from "../../../models/Product";
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, cookies } = req;
   Connect();
   if (method === "GET") {
     try {
@@ -12,12 +12,16 @@ export default async function handler(req, res) {
     }
   }
   if (method === "POST") {
-    try {
-      const product = await Product.create(req.body);
-      product.save();
-      res.status(201).json(product);
-    } catch (ex) {
-      res.status(500).json(ex);
+    if (cookies?.token === process.env.TOKEN) {
+      try {
+        const product = await Product.create(req.body);
+        product.save();
+        res.status(201).json(product);
+      } catch (ex) {
+        res.status(500).json(ex);
+      }
+    } else {
+      res.status(401).json("Not authorized");
     }
   }
 }

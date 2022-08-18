@@ -1,12 +1,14 @@
 import axios from "axios";
 import Head from "next/head";
 import { useState } from "react";
+import Add from "../components/Add";
+import AddButton from "../components/AddButton";
 import Featured from "../components/Features";
 import PizzaList from "../components/Pizzalist";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ pizzaList, admin }) {
-  const [close, setClose] = useState();
+  const [close, setClose] = useState(true);
 
   return (
     <div className={styles.container}>
@@ -16,9 +18,9 @@ export default function Home({ pizzaList, admin }) {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <Featured pizzaList={pizzaList} />
-      {admin && <button>Add Piza</button>}
+      {admin && <AddButton setClose={setClose} />}
       <PizzaList pizzaList={pizzaList} />
-      {}
+      {!close && <Add setClose={setClose} />}
     </div>
   );
 }
