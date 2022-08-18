@@ -1,0 +1,134 @@
+.container {
+
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.507);
+    color: #d1411e;
+}
+
+.wrapper {
+    width: 500px;
+    padding: 50px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 0;
+    color: white;
+    border-radius: 0 20px 0 0;
+    -webkit-border-radius: 0 20px 0 0;
+    -moz-border-radius: 0 20px 0 0;
+    -ms-border-radius: 0 20px 0 0;
+    -o-border-radius: 0 20px 0 0;
+    cursor: pointer;
+}
+
+
+
+.mainAddButton {
+    padding: 15px;
+    margin: 20px;
+    background-color: #d1411e;
+    width: 150px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    height: 30px;
+}
+
+.priceContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputSm {
+    width: 25%;
+}
+
+.extra {
+    display: flex;
+    justify-content: space-between;
+}
+
+.extraItems {
+    margin: 10px 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.extraButton {
+    margin: 10px;
+    align-self: flex-end;
+    color: white;
+    background-color: #d1411e
+}
+
+.extraItem {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid tomato;
+    background-color: white;
+    color: tomato;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.addButton {
+    width: 25%;
+    border: none;
+    background-color: teal;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 5px 0;
+    align-self: flex-end;
+}
